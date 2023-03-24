@@ -150,7 +150,10 @@ if __name__ == '__main__':
         print(error)
         sys.exit(1)
 
-    print("[int_result0_list] {}".format(int_result0_list))
+    print("[int_sequence_id0] {}, [int_result0_list] {}".format(int_sequence_id0, int_result0_list))
+    print("[int_sequence_id1] {}, [int_result1_list] {}".format(int_sequence_id1, int_result1_list))
+    print("[string_sequence_id0] {}, [string_result0_list] {}".format(string_sequence_id0, string_result0_list))
+
     for i in range(len(int_result0_list)):
         int_seq0_expected = 1 if (i == 0) else values[i - 1]
         int_seq1_expected = 101 if (i == 0) else values[i - 1] * -1
