@@ -156,7 +156,8 @@ if __name__ == '__main__':
 
     # print("[int_sequence_id0] {}, [int_result0_list] {}".format(int_sequence_id0, int_result0_list))
     # print("[int_sequence_id1] {}, [int_result1_list] {}".format(int_sequence_id1, int_result1_list))
-    print("[sequence_id] {}, [string_result0_list] {}".format(string_sequence_id0, string_result0_list))
+    print("[sequence_id] {}, [input_value] {}, [string_result0_list] {}".format(
+        string_sequence_id0, input_value, string_result0_list))
 
     for i in range(len(int_result0_list)):
         int_seq0_expected = 1 if (i == 0) else values[i - 1]
