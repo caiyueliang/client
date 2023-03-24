@@ -60,8 +60,6 @@ def sync_send(triton_client, result_list, values, batch_size, sequence_id,
         outputs.append(httpclient.InferRequestedOutput('OUTPUT'))
         # Issue the synchronous sequence inference.
 
-        print("[model_name] {}, [sequence_id] {}, [start:{}|end:{}], [inputs] {}, [outputs] {}".format(
-            model_name, sequence_id, (count == 1), (count == len(values)), inputs, outputs))
         result = triton_client.infer(model_name=model_name,
                                      inputs=inputs,
                                      outputs=outputs,
@@ -69,7 +67,7 @@ def sync_send(triton_client, result_list, values, batch_size, sequence_id,
                                      sequence_start=(count == 1),
                                      sequence_end=(count == len(values)))
         print("[model_name] {}, [sequence_id] {}, [start:{}|end:{}], [input_value] {}, [outputs_result] {}".format(
-            model_name, sequence_id, (count == 1), (count == len(values)), value_data, result))
+            model_name, sequence_id, (count == 1), (count == len(values)), value_data, result.as_numpy('OUTPUT')))
         result_list.append(result.as_numpy('OUTPUT'))
         count = count + 1
 
@@ -147,17 +145,18 @@ if __name__ == '__main__':
         # sync_send(triton_client, int_result1_list,
         #           [100] + [-1 * val for val in values], batch_size,
         #           int_sequence_id1, int_sequence_model_name, model_version)
+        input_value = [20] + [-1 * val for val in values]
         sync_send(triton_client, string_result0_list,
-                  [20] + [-1 * val for val in values], batch_size,
+                  input_value, batch_size,
                   string_sequence_id0, string_sequence_model_name,
                   model_version)
     except InferenceServerException as error:
         print(error)
         sys.exit(1)
 
-    print("[int_sequence_id0] {}, [int_result0_list] {}".format(int_sequence_id0, int_result0_list))
-    print("[int_sequence_id1] {}, [int_result1_list] {}".format(int_sequence_id1, int_result1_list))
-    print("[string_sequence_id0] {}, [string_result0_list] {}".format(string_sequence_id0, string_result0_list))
+    # print("[int_sequence_id0] {}, [int_result0_list] {}".format(int_sequence_id0, int_result0_list))
+    # print("[int_sequence_id1] {}, [int_result1_list] {}".format(int_sequence_id1, int_result1_list))
+    print("[sequence_id] {}, [string_result0_list] {}".format(string_sequence_id0, string_result0_list))
 
     for i in range(len(int_result0_list)):
         int_seq0_expected = 1 if (i == 0) else values[i - 1]
