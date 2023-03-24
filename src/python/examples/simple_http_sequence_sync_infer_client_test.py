@@ -68,8 +68,8 @@ def sync_send(triton_client, result_list, values, batch_size, sequence_id,
                                      sequence_id=sequence_id,
                                      sequence_start=(count == 1),
                                      sequence_end=(count == len(values)))
-        print("[model_name] {}, [sequence_id] {}, [start:{}|end:{}], [inputs] {}, [outputs] {}".format(
-            model_name, sequence_id, (count == 1), (count == len(values)), inputs, outputs))
+        print("[model_name] {}, [sequence_id] {}, [start:{}|end:{}], [input_value] {}, [outputs_result] {}".format(
+            model_name, sequence_id, (count == 1), (count == len(values)), value_data, result))
         result_list.append(result.as_numpy('OUTPUT'))
         count = count + 1
 
