@@ -115,7 +115,7 @@ if __name__ == '__main__':
     model_version = ""
     batch_size = 1
 
-    values = [11, 7, 5, 3, 2, 0, 1]
+    values = [11, 7, 5, 3, 2, 0, 1, 19]
 
     # Will use two sequences and send them synchronously. Note the
     # sequence IDs should be non-zero because zero is reserved for
@@ -150,6 +150,7 @@ if __name__ == '__main__':
         print(error)
         sys.exit(1)
 
+    print("[int_result0_list] {}".format(int_result0_list))
     for i in range(len(int_result0_list)):
         int_seq0_expected = 1 if (i == 0) else values[i - 1]
         int_seq1_expected = 101 if (i == 0) else values[i - 1] * -1
