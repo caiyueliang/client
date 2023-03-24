@@ -140,11 +140,11 @@ if __name__ == '__main__':
     user_data = UserData()
 
     try:
-        # sync_send(triton_client, int_result0_list, [0] + values, batch_size,
-        #           int_sequence_id0, int_sequence_model_name, model_version)
-        # sync_send(triton_client, int_result1_list,
-        #           [100] + [-1 * val for val in values], batch_size,
-        #           int_sequence_id1, int_sequence_model_name, model_version)
+        sync_send(triton_client, int_result0_list, [0] + values, batch_size,
+                  int_sequence_id0, int_sequence_model_name, model_version)
+        sync_send(triton_client, int_result1_list,
+                  [100] + [-1 * val for val in values], batch_size,
+                  int_sequence_id1, int_sequence_model_name, model_version)
         input_value = [20] + [-1 * val for val in values]
         sync_send(triton_client, string_result0_list,
                   input_value, batch_size,
@@ -154,8 +154,8 @@ if __name__ == '__main__':
         print(error)
         sys.exit(1)
 
-    # print("[int_sequence_id0] {}, [int_result0_list] {}".format(int_sequence_id0, int_result0_list))
-    # print("[int_sequence_id1] {}, [int_result1_list] {}".format(int_sequence_id1, int_result1_list))
+    print("[int_sequence_id0] {}, [int_result0_list] {}".format(int_sequence_id0, int_result0_list))
+    print("[int_sequence_id1] {}, [int_result1_list] {}".format(int_sequence_id1, int_result1_list))
     print("[sequence_id] {}, [input_value] {}, [string_result0_list] {}".format(
         string_sequence_id0, input_value, string_result0_list))
 
