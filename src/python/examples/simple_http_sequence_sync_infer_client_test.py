@@ -59,12 +59,17 @@ def sync_send(triton_client, result_list, values, batch_size, sequence_id,
         outputs = []
         outputs.append(httpclient.InferRequestedOutput('OUTPUT'))
         # Issue the synchronous sequence inference.
+
+        print("[model_name] {}, [sequence_id] {}, [start:{}|end:{}], [inputs] {}, [outputs] {}".format(
+            model_name, sequence_id, (count == 1), (count == len(values)), inputs, outputs))
         result = triton_client.infer(model_name=model_name,
                                      inputs=inputs,
                                      outputs=outputs,
                                      sequence_id=sequence_id,
                                      sequence_start=(count == 1),
                                      sequence_end=(count == len(values)))
+        print("[model_name] {}, [sequence_id] {}, [start:{}|end:{}], [inputs] {}, [outputs] {}".format(
+            model_name, sequence_id, (count == 1), (count == len(values)), inputs, outputs))
         result_list.append(result.as_numpy('OUTPUT'))
         count = count + 1
 
