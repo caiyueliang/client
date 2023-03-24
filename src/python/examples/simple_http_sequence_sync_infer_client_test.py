@@ -142,11 +142,11 @@ if __name__ == '__main__':
     user_data = UserData()
 
     try:
-        sync_send(triton_client, int_result0_list, [0] + values, batch_size,
-                  int_sequence_id0, int_sequence_model_name, model_version)
-        sync_send(triton_client, int_result1_list,
-                  [100] + [-1 * val for val in values], batch_size,
-                  int_sequence_id1, int_sequence_model_name, model_version)
+        # sync_send(triton_client, int_result0_list, [0] + values, batch_size,
+        #           int_sequence_id0, int_sequence_model_name, model_version)
+        # sync_send(triton_client, int_result1_list,
+        #           [100] + [-1 * val for val in values], batch_size,
+        #           int_sequence_id1, int_sequence_model_name, model_version)
         sync_send(triton_client, string_result0_list,
                   [20] + [-1 * val for val in values], batch_size,
                   string_sequence_id0, string_sequence_model_name,
