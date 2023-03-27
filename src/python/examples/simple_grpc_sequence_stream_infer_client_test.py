@@ -50,6 +50,7 @@ class UserData:
 # inference, error will be None, otherwise it will be an object of
 # tritonclientutils.InferenceServerException holding the error details
 def callback(user_data, result, error):
+    print("[callback] user_data: {}, result: {}, error: {}".format(user_data, result, error))
     if error:
         user_data._completed_requests.put(error)
     else:
@@ -75,12 +76,13 @@ def async_stream_send(triton_client, values, batch_size, sequence_id,
         triton_client.async_stream_infer(model_name=model_name,
                                          inputs=inputs,
                                          outputs=outputs,
-                                         request_id='{}_{}'.format(
-                                             sequence_id, count),
+                                         request_id='{}_{}'.format(sequence_id, count),
                                          sequence_id=sequence_id,
                                          sequence_start=(count == 1),
                                          sequence_end=(count == len(values)))
         count = count + 1
+        print("[model_name] {}, [sequence_id] {}, [start:{}|end:{}], [input_value] {}".format(
+            model_name, sequence_id, (count == 1), (count == len(values)), value_data))
 
 
 if __name__ == '__main__':
@@ -128,7 +130,7 @@ if __name__ == '__main__':
     model_version = ""
     batch_size = 1
 
-    values = [11, 7, 5, 3, 2, 0, 1]
+    values = [11, 7, 5, 3, 2, 0, 1, 19]
 
     # Will use two sequences and send them asynchronously. Note the
     # sequence IDs should be non-zero because zero is reserved for
@@ -159,14 +161,14 @@ if __name__ == '__main__':
             # Establish stream
             triton_client.start_stream(callback=partial(callback, user_data),
                                        stream_timeout=FLAGS.stream_timeout)
-            # Now send the inference sequences...
-            async_stream_send(triton_client, [0] + values, batch_size,
-                              int_sequence_id0, int_sequence_model_name,
-                              model_version)
-            async_stream_send(triton_client,
-                              [100] + [-1 * val for val in values], batch_size,
-                              int_sequence_id1, int_sequence_model_name,
-                              model_version)
+            # # Now send the inference sequences...
+            # async_stream_send(triton_client, [0] + values, batch_size,
+            #                   int_sequence_id0, int_sequence_model_name,
+            #                   model_version)
+            # async_stream_send(triton_client,
+            #                   [100] + [-1 * val for val in values], batch_size,
+            #                   int_sequence_id1, int_sequence_model_name,
+            #                   model_version)
             async_stream_send(triton_client,
                               [20] + [-1 * val for val in values], batch_size,
                               string_sequence_id0, string_sequence_model_name,
@@ -184,7 +186,7 @@ if __name__ == '__main__':
                 sys.exit(1)
             else:
                 try:
-                    this_id = data_item.get_response().id.split('_')[0]
+                    this_id = data_item.get_response().id.split('_')[0]         # 这边获取到的是sequence_id
                     if int(this_id) == int_sequence_id0:
                         int_result0_list.append(data_item.as_numpy('OUTPUT'))
                     elif int(this_id) == int_sequence_id1:
