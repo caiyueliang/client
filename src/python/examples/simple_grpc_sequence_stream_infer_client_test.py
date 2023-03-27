@@ -50,7 +50,7 @@ class UserData:
 # inference, error will be None, otherwise it will be an object of
 # tritonclientutils.InferenceServerException holding the error details
 def callback(user_data, result, error):
-    print("[callback] user_data: {}, result: {}, error: {}".format(user_data, result, error))
+    print("[callback] user_data: {}, result: {}, error: {}".format(user_data, result.get_response(), error))
     if error:
         user_data._completed_requests.put(error)
     else:
@@ -161,14 +161,14 @@ if __name__ == '__main__':
             # Establish stream
             triton_client.start_stream(callback=partial(callback, user_data),
                                        stream_timeout=FLAGS.stream_timeout)
-            # # Now send the inference sequences...
-            # async_stream_send(triton_client, [0] + values, batch_size,
-            #                   int_sequence_id0, int_sequence_model_name,
-            #                   model_version)
-            # async_stream_send(triton_client,
-            #                   [100] + [-1 * val for val in values], batch_size,
-            #                   int_sequence_id1, int_sequence_model_name,
-            #                   model_version)
+            # Now send the inference sequences...
+            async_stream_send(triton_client, [0] + values, batch_size,
+                              int_sequence_id0, int_sequence_model_name,
+                              model_version)
+            async_stream_send(triton_client,
+                              [100] + [-1 * val for val in values], batch_size,
+                              int_sequence_id1, int_sequence_model_name,
+                              model_version)
             async_stream_send(triton_client,
                               [20] + [-1 * val for val in values], batch_size,
                               string_sequence_id0, string_sequence_model_name,
