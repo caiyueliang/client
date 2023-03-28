@@ -79,10 +79,10 @@ def async_stream_send(triton_client, values, batch_size, sequence_id,
                                          request_id='{}_{}'.format(sequence_id, count),
                                          sequence_id=sequence_id,
                                          sequence_start=(count == 1),
-                                         sequence_end=(count == len(values)))
+                                         sequence_end=(count == len(values)+2))
         count = count + 1
         print("[model_name] {}, [sequence_id] {}, [start:{}|end:{}], [input_value] {}".format(
-            model_name, sequence_id, (count == 1), (count == len(values)), value_data))
+            model_name, sequence_id, (count == 1), (count == len(values)+2), value_data))
 
 
 if __name__ == '__main__':
