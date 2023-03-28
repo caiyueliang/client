@@ -50,7 +50,7 @@ class UserData:
 # inference, error will be None, otherwise it will be an object of
 # tritonclientutils.InferenceServerException holding the error details
 def callback(user_data, result, error):
-    print("[callback] user_data: {}, result: {}, error: {}".format(user_data, result.get_response(), error))
+    # print("[callback] user_data: {}, result: {}, error: {}".format(user_data, result.get_response(), error))
     if error:
         user_data._completed_requests.put(error)
     else:
