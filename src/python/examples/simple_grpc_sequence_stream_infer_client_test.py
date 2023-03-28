@@ -119,14 +119,25 @@ if __name__ == '__main__':
                         required=False,
                         default=0,
                         help='Add offset to sequence ID used')
+    parser.add_argument('-m',
+                        '--model_name',
+                        type=str,
+                        required=False,
+                        default=None,
+                        help='model name')
 
     FLAGS = parser.parse_args()
 
     # We use custom "sequence" models which take 1 input
     # value. The output is the accumulated value of the inputs. See
     # src/custom/sequence.
-    int_sequence_model_name = "simple_dyna_sequence" if FLAGS.dyna else "simple_sequence"
-    string_sequence_model_name = "simple_string_dyna_sequence" if FLAGS.dyna else "simple_sequence"
+    if FLAGS.model_name is None:
+        int_sequence_model_name = "simple_dyna_sequence" if FLAGS.dyna else "simple_sequence"
+        string_sequence_model_name = "simple_string_dyna_sequence" if FLAGS.dyna else "simple_sequence"
+    else:
+        int_sequence_model_name = FLAGS.model_name
+        string_sequence_model_name = FLAGS.model_name
+
     model_version = ""
     batch_size = 1
 
