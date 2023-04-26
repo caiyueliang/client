@@ -115,9 +115,9 @@ endif() # TRITON_ENABLE_CC_HTTP OR TRITON_ENABLE_PERF_ANALYZER
 # Protobuf
 #
 if(TRITON_ENABLE_CC_GRPC OR TRITON_ENABLE_PERF_ANALYZER)
-  set(Protobuf_DIR "/home/caiyueliang/software/protobuf-21.12/cmake")
+  # set(Protobuf_DIR "/home/caiyueliang/software/protobuf-21.12/cmake")
   set(protobuf_MODULE_COMPATIBLE TRUE CACHE BOOL "protobuf_MODULE_COMPATIBLE" FORCE)
-  find_package(Protobuf CONFIG REQUIRED)
+  find_package(protobuf CONFIG REQUIRED)
   message(STATUS "Using protobuf ${Protobuf_VERSION}")
   include_directories(${Protobuf_INCLUDE_DIRS})
 endif() # TRITON_ENABLE_CC_GRPC OR TRITON_ENABLE_PERF_ANALYZER
