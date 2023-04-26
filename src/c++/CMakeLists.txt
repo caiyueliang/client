@@ -52,11 +52,15 @@ endif()
 #
 include(FetchContent)
 
+#FetchContent_Declare(
+#  repo-common
+#  GIT_REPOSITORY https://github.com/triton-inference-server/common.git
+#  GIT_TAG ${TRITON_COMMON_REPO_TAG}
+#  GIT_SHALLOW ON
+#)
 FetchContent_Declare(
   repo-common
-  GIT_REPOSITORY https://github.com/triton-inference-server/common.git
-  GIT_TAG ${TRITON_COMMON_REPO_TAG}
-  GIT_SHALLOW ON
+  URL /home/caiyueliang/Triton/common
 )
 
 FetchContent_Declare(
@@ -69,11 +73,15 @@ if(TRITON_ENABLE_CC_GRPC OR TRITON_ENABLE_PERF_ANALYZER)
   set(TRITON_COMMON_ENABLE_GRPC ON)
 
   if(TRITON_ENABLE_PERF_ANALYZER)
+    #FetchContent_Declare(
+    #  repo-core
+    #  GIT_REPOSITORY https://github.com/triton-inference-server/core.git
+    #  GIT_TAG ${TRITON_CORE_REPO_TAG}
+    #  GIT_SHALLOW ON
+    #)
     FetchContent_Declare(
       repo-core
-      GIT_REPOSITORY https://github.com/triton-inference-server/core.git
-      GIT_TAG ${TRITON_CORE_REPO_TAG}
-      GIT_SHALLOW ON 
+      URL /home/caiyueliang/Triton/core
     )
     FetchContent_MakeAvailable(repo-core)
   endif() # TRITON_ENABLE_PERF_ANALYZER
