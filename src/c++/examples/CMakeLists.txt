@@ -34,6 +34,7 @@ if(TRITON_ENABLE_CC_HTTP AND TRITON_ENABLE_CC_GRPC)
   #
   # image_client
   #
+  set(OpenCV_DIR /home/caiyueliang/software/opencv-4.6.0)
   find_package(OpenCV REQUIRED)
   add_executable(
     image_client

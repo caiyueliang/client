@@ -71,6 +71,7 @@ include(FetchContent)
 FetchContent_Declare(
   repo-third-party
   URL /home/caiyueliang/Triton/third_party
+  # URL /Users/caiyueliang/project/wzy/Triton/third_party
 )
 set(TRITON_THIRD_PARTY_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/third-party)
 FetchContent_MakeAvailable(repo-third-party)
