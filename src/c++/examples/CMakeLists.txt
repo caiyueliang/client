@@ -58,6 +58,30 @@ if(TRITON_ENABLE_CC_HTTP AND TRITON_ENABLE_CC_GRPC)
   )
 
   #
+  # image_client_test
+  #
+  add_executable(
+    image_client_test
+    image_client_test.cc
+    $<TARGET_OBJECTS:json-utils-library>
+  )
+  target_include_directories(
+    image_client_test
+    PRIVATE ${OpenCV_INCLUDE_DIRS}
+  )
+  target_link_libraries(
+    image_client_test
+    PRIVATE
+      grpcclient_static
+      httpclient_static
+      ${OpenCV_LIBS}
+  )
+  install(
+    TARGETS image_client_test
+    RUNTIME DESTINATION bin
+  )
+
+  #
   # ensemble_image_client
   #
   add_executable(
