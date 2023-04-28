@@ -260,6 +260,7 @@ Postprocess(
       int count = 0;
       std::string token;
       while (getline(is, token, ':')) {
+        std::cout << is << token;
         if (count == 0) {
           std::cout << "    " << token;
         } else if (count == 1) {
