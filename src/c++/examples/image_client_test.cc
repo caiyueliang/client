@@ -260,13 +260,12 @@ Postprocess(
       int count = 0;
       std::string token;
       while (getline(is, token, ':')) {
-        std::cout << is << token;
         if (count == 0) {
-          std::cout << "    " << token;
+          std::cout << "概率： " << token << "% ; ";
         } else if (count == 1) {
-          std::cout << " (" << token << ")";
+          std::cout << "id: " << token << "; ";
         } else if (count == 2) {
-          std::cout << " = " << token;
+          std::cout << "类别: " << token;
         }
         count++;
       }
